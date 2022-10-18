@@ -1,6 +1,10 @@
-let recipe = [
+
+let recipes = [
     {
         title: "FLÄSKFILEPLANKA",
+        meat: true,
+        vegetarian: false,
+        alergy: "none",
         price: 149,
         image: "./images/food.jpeg",
         description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
@@ -8,7 +12,21 @@ let recipe = [
                         id, consectetur libero`
     },
     {
+        title: "*HUSETS SCHNITZEL",
+        meat: false,
+        vegetarian: true,
+        alergy: "none",
+        price: 175,
+        image: "./images/food.jpeg",
+        description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
+                        omnis modi corrupti? Corporis quas, quos accusamus iste tempora odio, eaque quasi voluptas culpa
+                        id, consectetur libero`
+    },
+    {
         title: "FISH'N CHIPS",
+        meat: true,
+        vegetarian: false,
+        alergy: "none",
         price: 149,
         image: "./images/asparagus.jpeg",
         description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
@@ -16,7 +34,21 @@ let recipe = [
                         id, consectetur libero`
     },
     {
+        title: "*Potatis",
+        meat: false,
+        vegetarian: true,
+        alergy: "laktos",
+        price: 80,
+        image: "./images/bar.jpeg",
+        description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
+                        omnis modi corrupti? Corporis quas, quos accusamus iste tempora odio, eaque quasi voluptas culpa
+                        id, consectetur libero`
+    },
+    {
         title: "KRÄMIG KYCKLINGPASTA",
+        meat: true,
+        vegetarian: false,
+        alergy: "none",
         price: 169,
         image: "./images/bar.jpeg",
         description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
@@ -25,6 +57,9 @@ let recipe = [
     },
     {
         title: "BIFF RYDBERG",
+        meat: true,
+        vegetarian: false,
+        alergy: "none",
         price: 175,
         image: "./images/egg.jpeg",
         description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
@@ -32,15 +67,21 @@ let recipe = [
                         id, consectetur libero`
     },
     {
-        title: "HUSETS SCHNITZEL",
-        price: 175,
+        title: 'Hamburgare',
+        meat: true,
+        vegetarian: false,
+        alergy: "gluten",
+        price: 50,
         image: "./images/food.jpeg",
         description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
                         omnis modi corrupti? Corporis quas, quos accusamus iste tempora odio, eaque quasi voluptas culpa
                         id, consectetur libero`
     },
     {
-        title: "MUSSLOR AL CAVA",
+        title: "*MUSSLOR AL CAVA",
+        meat: false,
+        vegetarian: true,
+        alergy: "none",
         price: 109,
         image: "./images/asparagus.jpeg",
         description: `Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis vel dicta excepturi quo,
@@ -49,65 +90,53 @@ let recipe = [
     },
 ]
 
+const cardsContainer = document.querySelector(".cardsContainer");
+let filterByMeat = false;
+let filterByVegetarian = false;
+let filterByLactos = false;
+let filterByGluten = false;
 
 // Creates a card in HTML file
 function createCard(cardNumber) {
-    const cardsContainer = document.querySelector(".cardsContainer");
-    let card = document.createElement("div");
+    const card = document.createElement("div");
     card.classList.add("card");
     cardsContainer.insertAdjacentElement("beforeend", card);
-    let cardImg = document.createElement("img");
-    let cardText = document.createElement("div");
-    card.appendChild(cardImg);
-    card.appendChild(cardText);
-    let cardTitle = document.createElement("h3");
-    let cardPrice = document.createElement("p");
-    let cardButton = document.createElement("button");
+    const cardImg = document.createElement("img");
+    const cardTitle = document.createElement("h3");
+    const cardPrice = document.createElement("p");
+    const cardButton = document.createElement("button");
     cardButton.classList.add("detailsBtn");
     cardButton.setAttribute("type", "submit");
     cardButton.setAttribute("onclick", "openPopup(" + cardNumber + ")");
-    cardText.appendChild(cardTitle);
-    cardText.appendChild(cardPrice);
-    cardText.appendChild(cardButton);
-    cardImg.setAttribute("src", recipe[cardNumber].image);
-    cardTitle.innerHTML = recipe[cardNumber].title;
-    cardPrice.innerHTML = recipe[cardNumber].price;
+    card.appendChild(cardImg);
+    card.appendChild(cardTitle);
+    card.appendChild(cardPrice);
+    card.appendChild(cardButton);
+    cardImg.setAttribute("src", getMenu()[cardNumber].image);
+    cardTitle.innerHTML = getMenu()[cardNumber].title;
+    cardPrice.innerHTML = getMenu()[cardNumber].price + " KR";
     cardButton.innerHTML = "Details";
+}
+
+
+// Create a new Array according to the current state of the user input
+function getMenu() {
+    return recipes.filter(item => {
+        const isMeat = filterByMeat ? item.meat : true;
+        const isVegetarian = filterByVegetarian ? item.vegetarian : true;
+        const isLactos = filterByLactos ? !item.alergy.includes("laktos") : true;
+        const isGluten = filterByGluten ? !item.alergy.includes("gluten") : true;
+        return isMeat && isVegetarian && isLactos && isGluten;
+    });
 }
 
 // Creates all the cards from Array recipe
 function createCards() {
-    for (let i = 0; i < recipe.length; i++) {
-        createCard(i);
-    }
+    getMenu().forEach((element, index) => {
+        createCard(index);
+    });
 }
 
 createCards();
 
-// ======================== POPUP MENU ========================
-let popupHeader = document.querySelector(".popupHeader");
-let popupPrice = document.querySelector(".popupPrice");
-let popupImg = document.querySelector(".popupImg");
-let popupText = document.querySelector(".popupText");
 
-// Add content to popup menu
-function addPopupContent(cardNumber) {
-    popupHeader.innerHTML = recipe[cardNumber].title;
-    popupPrice.innerHTML = recipe[cardNumber].price;
-    popupImg.setAttribute("src", recipe[cardNumber].image);
-    popupText.innerHTML = recipe[cardNumber].description;
-}
-
-
-
-//open popup menu
-const POPUP = document.getElementById("popup");
-
-function openPopup(cardNumber) {
-    POPUP.classList.add("openPopup");
-    addPopupContent(cardNumber);
-}
-// Close popup menu
-function closePopup() {
-    POPUP.classList.remove("openPopup");
-}
