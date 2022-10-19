@@ -26,7 +26,8 @@ body {
     list-style: none;
 }
 
-.navBar button, select {
+.navBar button,
+select {
     margin: 10px;
     padding: 5px;
     text-align: center;
@@ -85,8 +86,9 @@ body {
     cursor: pointer;
 }
 
-/*========== PUPUP ==========*/
-.popup {
+/*========== PUPUP MENU & POPUP CART LIST ==========*/
+.popup,
+.cartPopup {
     position: fixed;
     top: 0;
     left: 0;
@@ -109,7 +111,9 @@ body {
     visibility: visible;
 }
 
-.popupTitle {
+.popupTitle,
+.cartListItem,
+.cartPopup>* {
     justify-content: space-between;
     align-items: center;
     font-size: 1.25rem;
@@ -138,3 +142,28 @@ body {
     border: none;
     background: none;
 }
+
+#cart {
+    display: flex;
+    align-items: baseline;
+    cursor: pointer;
+}
+
+#cart p {
+    color: red;
+    font-size: 25px;
+}
+
+.cartListItem > div {
+    display: flex;
+    align-items: center;
+}
+
+#sum {
+    border-top: 1px solid red;
+}
+
+#sum p {
+    color: red;
+}
+

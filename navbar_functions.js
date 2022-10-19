@@ -92,3 +92,69 @@ function prisordning() {
         createCards();
     }
 }
+
+// =========== SHOPPING CART ==========
+
+const cartPopup = document.getElementById("cartPopup");
+const cartList = document.getElementById("cartList");
+const totalPrice = document.getElementById("totalPrice");
+const counter = document.getElementById("counter");
+const shoppingList = [];
+let cartItemsCounter = 0;
+
+// Create card to display in cart list
+function createCartItem(cardNumber) {
+    const cartListItem = document.createElement("div");
+    const cartItemHeader = document.createElement("div");
+    const cartItemDeleteBtn = document.createElement("button");
+    const cartItemTitle = document.createElement("p");
+    const cartItemPrice = document.createElement("p");
+    cartListItem.classList.add("cartListItem");
+    cartListItem.classList.add("flex");
+    cartItemDeleteBtn.classList.add("closeBtn");
+    cartList.insertAdjacentElement("afterbegin", cartListItem);
+    cartListItem.appendChild(cartItemHeader);
+    cartItemHeader.appendChild(cartItemDeleteBtn);
+    cartItemHeader.appendChild(cartItemTitle);
+    cartListItem.appendChild(cartItemPrice);
+    cartItemDeleteBtn.innerHTML = "&times;";
+    cartItemTitle.innerHTML = shoppingList[cardNumber].title;
+    cartItemPrice.innerHTML = shoppingList[cardNumber].price + " KR  ";
+    cartItemDeleteBtn.setAttribute("onclick", "deleteListItem(" + cardNumber + ")");
+}
+
+// Add to cart function
+function addToCart(cardNumber) {
+    shoppingList.push(getMenu()[cardNumber]);
+    cartItemsCounter++;
+    counter.innerHTML = cartItemsCounter;
+}
+
+function openShoppingCart() {
+    cartList.innerHTML = "";
+    cartPopup.classList.add("openPopup");
+    shoppingList.forEach((item, index)=> createCartItem(index));
+    countTotalPrice();
+    totalPrice.innerHTML = countTotalPrice() + " KR";
+}
+
+function closeShoppingCart() {
+    cartPopup.classList.remove("openPopup");
+    cartList.innerHTML = "";
+    if(cartItemsCounter === 0) {
+        counter.innerHTML = "";
+    }
+}
+
+function countTotalPrice() {
+    let sum = 0;
+    shoppingList.forEach((item)=> sum += item.price);
+    return sum;
+}
+
+function deleteListItem(cardNumber) {
+    delete shoppingList[cardNumber];
+    openShoppingCart();
+    cartItemsCounter--;
+    counter.innerHTML = cartItemsCounter;
+}

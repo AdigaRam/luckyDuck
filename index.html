@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/0e4678108c.js" crossorigin="anonymous"></script>
     <title>Digital Meny</title>
 </head>
 
@@ -14,6 +15,8 @@
         <div class="headerContent flex">
             <img src="./images/lucky_duck-removebg.png" alt="">
             <h1>Lucky Duck</h1>
+            <i id="cart" class="fa fa-shopping-cart" onclick="openShoppingCart()"><p id="counter"></p></i>
+
         </div>
 
     </header>
@@ -51,10 +54,27 @@
             </div>
         </div>
 
+        <div id="cartPopup" class="cartPopup">
+            <div id="cartHeader" class="flex">
+                <h2>Inköpslista</h2>
+                <button class="closeBtn" type="button" onclick="closeShoppingCart()">&times;</button>
+            </div>
+            <div id="cartList">      
+                <!-- <div class="cartListItem flex"> 
+                    <h3>Potatis</h3>
+                    <p>60 KR</p>
+                </div> -->
+            </div>
+            <div id="sum" class="flex">
+                <h3>Summan</h3>
+                <p id="totalPrice"></p>
+            </div>
+        </div>
+
     </div>
     <script src="./popup.js"></script>
-    <script src="./main.js"></script>
     <script src="./navbar_functions.js"></script>
+    <script src="./main.js"></script>
 </body>
 
 </html>

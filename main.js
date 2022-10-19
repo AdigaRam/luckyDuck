@@ -12,7 +12,7 @@ let recipes = [
                         id, consectetur libero`
     },
     {
-        title: "*HUSETS SCHNITZEL",
+        title: "HUSETS SCHNITZEL",
         meat: false,
         vegetarian: true,
         alergy: "none",
@@ -34,7 +34,7 @@ let recipes = [
                         id, consectetur libero`
     },
     {
-        title: "*Potatis",
+        title: "Potatis",
         meat: false,
         vegetarian: true,
         alergy: "laktos",
@@ -67,7 +67,7 @@ let recipes = [
                         id, consectetur libero`
     },
     {
-        title: 'Hamburgare',
+        title: "Hamburgare",
         meat: true,
         vegetarian: false,
         alergy: "gluten",
@@ -78,7 +78,7 @@ let recipes = [
                         id, consectetur libero`
     },
     {
-        title: "*MUSSLOR AL CAVA",
+        title: "MUSSLOR AL CAVA",
         meat: false,
         vegetarian: true,
         alergy: "none",
@@ -105,17 +105,23 @@ function createCard(cardNumber) {
     const cardTitle = document.createElement("h3");
     const cardPrice = document.createElement("p");
     const cardButton = document.createElement("button");
+    const addToCartBtn = document.createElement("button");
     cardButton.classList.add("detailsBtn");
     cardButton.setAttribute("type", "submit");
     cardButton.setAttribute("onclick", "openPopup(" + cardNumber + ")");
+    addToCartBtn.classList.add("detailsBtn");
+    addToCartBtn.setAttribute("type", "submit");
+    addToCartBtn.setAttribute("onclick", "addToCart(" + cardNumber + ")");
     card.appendChild(cardImg);
     card.appendChild(cardTitle);
     card.appendChild(cardPrice);
     card.appendChild(cardButton);
+    card.appendChild(addToCartBtn);
     cardImg.setAttribute("src", getMenu()[cardNumber].image);
     cardTitle.innerHTML = getMenu()[cardNumber].title;
     cardPrice.innerHTML = getMenu()[cardNumber].price + " KR";
     cardButton.innerHTML = "Details";
+    addToCartBtn.innerHTML = "Lägg till Cart";
 }
 
 
@@ -138,5 +144,7 @@ function createCards() {
 }
 
 createCards();
+
+
 
 

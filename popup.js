@@ -1,7 +1,7 @@
-let popupHeader = document.querySelector(".popupHeader");
-let popupPrice = document.querySelector(".popupPrice");
-let popupImg = document.querySelector(".popupImg");
-let popupText = document.querySelector(".popupText");
+const popupHeader = document.querySelector(".popupHeader");
+const popupPrice = document.querySelector(".popupPrice");
+const popupImg = document.querySelector(".popupImg");
+const popupText = document.querySelector(".popupText");
 
 // Add content to popup menu
 function addPopupContent(cardNumber) {
@@ -24,3 +24,5 @@ function openPopup(cardNumber) {
 function closePopup() {
     POPUP.classList.remove("openPopup");
 }
+
+
