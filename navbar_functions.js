@@ -14,13 +14,12 @@ function showMeat() {
     } else {
         filterByMeat = true;
         filterByVegetarian = false;   // To disable (Vegetarian) button if it is enabled
-        meatButton.style.backgroundColor = "red";
+        meatButton.style.backgroundColor = "gray";
         vegetarianButton.style.backgroundColor = "white";   // To show that (Vegetarian) button is disabled
         cardsContainer.innerHTML = "";
         createCards();
     }
 }
-
 
 // Show vegetarian dishes when pressing (Vegetarisk) button
 
@@ -34,7 +33,7 @@ function showVegetarian() {
         filterByVegetarian = true;
         filterByMeat = false;   // To disable (Kött) button if it is enabled
         meatButton.style.backgroundColor = "white"; // To show that (Kött) button is disabled
-        vegetarianButton.style.backgroundColor = "red";
+        vegetarianButton.style.backgroundColor = "gray";
         cardsContainer.innerHTML = "";
         createCards();
     }
@@ -44,13 +43,13 @@ function showVegetarian() {
 
 function removeAllergic() {
     if (allergyButton.value === "laktos") {
-        allergyButton.style.backgroundColor = "red";
+        allergyButton.style.backgroundColor = "gray";
         filterByLactos = true;
         filterByGluten = false;
         cardsContainer.innerHTML = "";
         createCards();
     } else if (allergyButton.value === "gluten") {
-        allergyButton.style.backgroundColor = "red";
+        allergyButton.style.backgroundColor = "gray";
         filterByGluten = true;
         filterByLactos = false;
         cardsContainer.innerHTML = "";
@@ -80,10 +79,10 @@ function sortDescending() {
 
 function prisordning() {
     if (priceSortButton.value === "stigande") {
-        priceSortButton.style.backgroundColor = "red";
+        priceSortButton.style.backgroundColor = "gray";
         sortAscending();
     } else if (priceSortButton.value === "fallande") {
-        priceSortButton.style.backgroundColor = "red";
+        priceSortButton.style.backgroundColor = "gray";
         sortDescending();
     } else {
         priceSortButton.style.backgroundColor = "white";
@@ -125,15 +124,22 @@ function createCartItem(cardNumber) {
 
 // Add to cart function
 function addToCart(cardNumber) {
+    let x = shoppingList.length;
     shoppingList.push(getMenu()[cardNumber]);
+    // Add the property (number) to shoppingList with the same cardNumber to help
+    // removing red border from the card in the function deleteListItem(cardNumber)
+    shoppingList[x].number = cardNumber;
+    const card = document.querySelector(".card-" + cardNumber);
+    card.style.border = "5px solid red";
     cartItemsCounter++;
     counter.innerHTML = cartItemsCounter;
 }
+console.log(shoppingList);
 
 function openShoppingCart() {
     cartList.innerHTML = "";
     cartPopup.classList.add("openPopup");
-    shoppingList.forEach((item, index)=> createCartItem(index));
+    shoppingList.forEach((item, index) => createCartItem(index));
     countTotalPrice();
     totalPrice.innerHTML = countTotalPrice() + " KR";
 }
@@ -141,18 +147,28 @@ function openShoppingCart() {
 function closeShoppingCart() {
     cartPopup.classList.remove("openPopup");
     cartList.innerHTML = "";
-    if(cartItemsCounter === 0) {
+    if (cartItemsCounter === 0) {
         counter.innerHTML = "";
     }
 }
 
 function countTotalPrice() {
     let sum = 0;
-    shoppingList.forEach((item)=> sum += item.price);
+    shoppingList.forEach((item) => sum += item.price);
     return sum;
 }
 
 function deleteListItem(cardNumber) {
+    const card = document.querySelector(".card-" + shoppingList[cardNumber].number);
+    //To check if there is more than one of the same dish
+    let z = 0;
+    shoppingList.forEach((item) => {
+        if (shoppingList[cardNumber].number === item.number) z++;
+    });
+    // If there is no more than one dish => remove red border
+    if (z < 2) {
+        card.style.border = "0";
+    }
     delete shoppingList[cardNumber];
     openShoppingCart();
     cartItemsCounter--;

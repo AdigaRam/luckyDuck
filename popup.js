@@ -11,8 +11,6 @@ function addPopupContent(cardNumber) {
     popupText.innerHTML = getMenu()[cardNumber].description;
 }
 
-
-
 //open popup menu
 const POPUP = document.getElementById("popup");
 
@@ -24,5 +22,3 @@ function openPopup(cardNumber) {
 function closePopup() {
     POPUP.classList.remove("openPopup");
 }
-
-

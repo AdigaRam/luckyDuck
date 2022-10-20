@@ -90,6 +90,10 @@ let recipes = [
     },
 ]
 
+
+
+//=========================================================================
+
 const cardsContainer = document.querySelector(".cardsContainer");
 let filterByMeat = false;
 let filterByVegetarian = false;
@@ -100,6 +104,7 @@ let filterByGluten = false;
 function createCard(cardNumber) {
     const card = document.createElement("div");
     card.classList.add("card");
+    card.classList.add("card-" + cardNumber);
     cardsContainer.insertAdjacentElement("beforeend", card);
     const cardImg = document.createElement("img");
     const cardTitle = document.createElement("h3");
@@ -120,7 +125,7 @@ function createCard(cardNumber) {
     cardImg.setAttribute("src", getMenu()[cardNumber].image);
     cardTitle.innerHTML = getMenu()[cardNumber].title;
     cardPrice.innerHTML = getMenu()[cardNumber].price + " KR";
-    cardButton.innerHTML = "Details";
+    cardButton.innerHTML = "Detaljer";
     addToCartBtn.innerHTML = "Lägg till Cart";
 }
 
@@ -144,7 +149,6 @@ function createCards() {
 }
 
 createCards();
-
 
 
 

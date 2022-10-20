@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: work sans;
+    font-family: "work sans";
 }
 
 body {
@@ -72,8 +72,7 @@ select {
     padding: 10px;
     border-top: none !important;
     border: 1px solid;
-    border-end-end-radius: 10px;
-    border-bottom-left-radius: 10px;
+    border-radius: 10px;
     margin-top: 0;
     background-color: #f7f7f7;
 }
@@ -84,9 +83,10 @@ select {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    margin-bottom: 5px;
 }
 
-/*========== PUPUP MENU & POPUP CART LIST ==========*/
+/*========== PUPUP MENU & POPUP SHOPPING CART ==========*/
 .popup,
 .cartPopup {
     position: fixed;
@@ -113,7 +113,7 @@ select {
 
 .popupTitle,
 .cartListItem,
-.cartPopup>* {
+.cartPopup > * {
     justify-content: space-between;
     align-items: center;
     font-size: 1.25rem;
@@ -131,7 +131,6 @@ select {
 
 .popupBody img {
     max-width: 100%;
-    max-height: auto;
 }
 
 .closeBtn {
